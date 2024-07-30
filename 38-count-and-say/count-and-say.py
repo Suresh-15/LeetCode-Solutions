@@ -15,12 +15,10 @@ class Solution:
             if count != 0:
                 result += str(count)
                 result += s[i]
-        
-        print(result)
+
         return result
 
     def countAndSay(self, n: int) -> str:
         if n == 1:
             return "1"
-            print(self.compress('21'))
         return self.compress(self.countAndSay(n-1))
