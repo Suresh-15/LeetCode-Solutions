@@ -25,7 +25,7 @@ class Solution:
                 top_k.append(num)
                 if len(top_k) == k:
                     return top_k
-        """
+        
 
         from collections import defaultdict
         d = defaultdict(int)
@@ -39,3 +39,10 @@ class Solution:
                 heappop(heap)
 
         return [k for (v, k) in heap]
+
+        """
+
+        defDict = defaultdict(int)
+        for number in nums:
+            defDict[number] += 1
+        return sorted(defDict, key=defDict.get, reverse=True)[:k]
