@@ -6,12 +6,10 @@ class Solution {
 
         for (int i = 0; i < nums.length; i++) {
             int complement = target - nums[i];
-            for (Map.Entry<Integer, Integer> m : seen.entrySet()) {
-                if (m.getKey() == complement) {
-                    result[0] = m.getValue();
-                    result[1] = i;
-                    return result;
-                }
+            if (seen.containsKey(complement) == true) {
+                result[0] = i;
+                result[1] = seen.get(complement);
+                return result;
             }
             seen.put(nums[i], i);
         }
