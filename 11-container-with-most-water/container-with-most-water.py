@@ -11,10 +11,15 @@ class Solution:
         """
 
         maxArea = 0
-        left, right = 0, len(height) - 1
+        left, right, maxi = 0, len(height) - 1, max(height)
+
+
         while left < right:
             area = min(height[left], height[right]) * (right - left)
             maxArea = max(maxArea, area)
+            if maxi * (right - left) <= maxArea:
+                break
+
             if height[left] < height[right]:
                 left = left + 1
             else:
