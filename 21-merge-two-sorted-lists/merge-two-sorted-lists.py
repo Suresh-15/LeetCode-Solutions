@@ -4,8 +4,12 @@
 #         self.val = val
 #         self.next = next
 
+
 class Solution:
-    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+    def mergeTwoLists(
+        self, list1: Optional[ListNode], list2: Optional[ListNode]
+    ) -> Optional[ListNode]:
+
         dummy = ListNode()
         temp = dummy
         while list1 and list2:
@@ -16,11 +20,10 @@ class Solution:
                 temp.next = list2
                 list2 = list2.next
             temp = temp.next
-            
 
         if list1 is not None:
             temp.next = list1
         if list2 is not None:
             temp.next = list2
-        
+
         return dummy.next
