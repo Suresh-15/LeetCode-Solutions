@@ -18,13 +18,9 @@ class Solution:
             temp = temp.next
             
 
-        while list1 is not None:
+        if list1 is not None:
             temp.next = list1
-            list1 = list1.next
-            temp = temp.next
-        while list2 is not None:
+        if list2 is not None:
             temp.next = list2
-            list2 = list2.next
-            temp = temp.next
         
         return dummy.next
