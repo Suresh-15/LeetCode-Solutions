@@ -5,6 +5,7 @@
 #         self.left = left
 #         self.right = right
 
+
 class Solution:
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         """
@@ -13,13 +14,14 @@ class Solution:
         return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
         """
         result = []
+
         def preorder(root):
             if not root:
                 return None
             result.append(root.val)
             preorder(root.left)
             preorder(root.right)
+
         preorder(root)
-        
+
         return result
-  
