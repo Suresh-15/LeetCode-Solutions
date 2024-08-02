@@ -13,6 +13,7 @@ class Solution:
             return []
         return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
         """
+        
         result = []
 
         def preorder(root):
@@ -23,6 +24,4 @@ class Solution:
             preorder(root.right)
 
         preorder(root)
-
         return result
-        
