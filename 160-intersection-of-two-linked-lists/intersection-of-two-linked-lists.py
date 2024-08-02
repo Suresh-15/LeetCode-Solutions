@@ -10,17 +10,30 @@ class Solution(object):
         :type head1, head1: ListNode
         :rtype: ListNode
         """
-        visited = set()
-        tempA, tempB = headA, headB
-        while tempA or tempB:
-            if tempA:
-                if tempA in visited:
-                    return tempA
-                visited.add(tempA)
-                tempA = tempA.next
-            if tempB:
-                if tempB in visited:
-                    return tempB
-                visited.add(tempB)
-                tempB = tempB.next
-        return None
+        
+        def listLen(node):
+            count = 0
+            while(node):
+                count += 1
+                node = node.next
+            return count
+        
+        lenA = listLen(headA)
+        lenB = listLen(headB)
+        remaining = min(lenA, lenB)
+        if lenA < lenB:
+            c = lenB-lenA
+            while c:
+                headB = headB.next
+                c = c - 1
+        elif lenA > lenB:
+            c = lenA-lenB
+            while c:
+                headA = headA.next
+                c = c - 1
+        
+        while headA != headB:
+            headA = headA.next
+            headB = headB.next
+        
+        return headA
