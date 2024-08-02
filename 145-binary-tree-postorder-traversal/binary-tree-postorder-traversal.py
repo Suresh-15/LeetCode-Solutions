@@ -13,7 +13,6 @@ class Solution:
         """
 
         result = []
-
         def postorder(root):
             if not root:
                 return None
