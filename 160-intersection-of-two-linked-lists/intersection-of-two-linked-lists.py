@@ -4,31 +4,35 @@
 #         self.val = x
 #         self.next = None
 
+
 class Solution:
-    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
-        def listLen(node):
-            count = 0
-            while(node):
-                count += 1
-                node = node.next
-            return count
-        
-        lenA = listLen(headA)
-        lenB = listLen(headB)
-        remaining = min(lenA, lenB)
-        if lenA < lenB:
-            c = lenB-lenA
-            while c:
-                headB = headB.next
-                c = c - 1
-        elif lenA > lenB:
-            c = lenA-lenB
-            while c:
-                headA = headA.next
-                c = c - 1
-        
-        while headA != headB:
-            headA = headA.next
-            headB = headB.next
-        
-        return headA
+    def getIntersectionNode(
+        self, headA: ListNode, headB: ListNode
+    ) -> Optional[ListNode]:
+
+        cur1, cur2, n1, n2 = headA, headB, 1, 1
+        while cur1.next:
+            n1 += 1
+            cur1 = cur1.next
+        while cur2.next:
+            n2 += 1
+            cur2 = cur2.next
+
+        if cur1 != cur2:
+            return None
+
+        cur1, cur2 = headA, headB
+        if n1 > n2:
+            while n1 != n2:
+                n1 -= 1
+                cur1 = cur1.next
+        elif n1 < n2:
+            while n1 != n2:
+                n2 -= 1
+                cur2 = cur2.next
+
+        while cur1 != cur2:
+            cur1 = cur1.next
+            cur2 = cur2.next
+
+        return cur1
