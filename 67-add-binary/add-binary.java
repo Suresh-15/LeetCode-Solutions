@@ -6,7 +6,7 @@ class Solution {
         while (i >= 0 || j >= 0 || carry == 1) {
             if (i >= 0)
                 carry += a.charAt(i--) - '0';
-            if (j >= 0) 
+            if (j >= 0)
                 carry += b.charAt(j--) - '0';
 
             result.append(carry % 2);
