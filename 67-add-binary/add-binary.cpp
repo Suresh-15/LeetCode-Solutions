@@ -1,36 +1,24 @@
 class Solution {
 public:
     string addBinary(string a, string b) {
-        string c(max(a.size(), b.size()) + 1, '0');
-        int ai = (int)a.size() - 1;
-        int bi = (int)b.size() - 1;
-        int ci = (int)c.size() - 1;
+        string str;
+        int m = a.length() - 1;
+        int n = b.length() - 1;
         int carry = 0;
 
-        while (ci >= 0) {
-            int sum = 0;
-            if (ai >= 0 && a[ai] == '1') {
-                ++sum;
-            }
-            if (bi >= 0 && b[bi] == '1') {
-                ++sum;
-            }
-            sum += carry;
+        while (m >= 0 || n >= 0) {
+            int sum = carry;
+            if (m >= 0)
+                sum += a[m--] - '0';
+            if (n >= 0)
+                sum += b[n--] - '0';
 
-            if (sum % 2 == 1) {
-                c[ci] = '1';
-            }
-            carry = (sum > 1) ? 1 : 0;
-
-            --ai;
-            --bi;
-            --ci;
+            carry = sum > 1 ? 1 : 0;
+            str += to_string(sum % 2);
         }
-
-        if (c[0] == '0') {
-            c.erase(c.begin());
-        }
-
-        return c;
+        if (carry)
+            str += to_string(carry);
+        reverse(str.begin(), str.end());
+        return str;
     }
 };
