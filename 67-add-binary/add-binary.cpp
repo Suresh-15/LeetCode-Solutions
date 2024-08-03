@@ -1,6 +1,7 @@
 class Solution {
 public:
     string addBinary(string a, string b) {
+        
         string result;
         int i = a.length() - 1;
         int j = b.length() - 1;
@@ -19,7 +20,7 @@ public:
 
         if (carry)
             result += to_string(carry);
-            
+
         reverse(result.begin(), result.end());
         return result;
     }
