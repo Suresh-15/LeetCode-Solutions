@@ -1,27 +1,18 @@
 class Solution {
 public:
     string convert(string s, int numRows) {
-        if (numRows == 1 || numRows >= s.length()) {
+        int n = s.length();
+        if (numRows == 1 || numRows >= n)
             return s;
-        }
-
-        int index = 0, zigzag = 0;
-        vector<vector<char>> v(numRows);
-        for (int i = 0; i < s.length(); i++) {
-            v[index].push_back(s[i]);
-            if (index == numRows - 1)
-                zigzag = -1;
-            else if (index == 0)
-                zigzag = 1;
-            index += zigzag;
-        }
-
         string result;
-        for(const auto& m: v){
-            for(char c: m)
-                result += c;
+        int len = 2 * numRows - 2;
+        for (int i = 0; i < numRows; i++){
+            for (int j = 0; i + j < n; j += len){
+                result += s[i + j];
+                if (i != 0 && i != numRows - 1 && j + len - i < n)
+                    result += s[j + len - i];
+            }
         }
-
         return result;
     }
 };
