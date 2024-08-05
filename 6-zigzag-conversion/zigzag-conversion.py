@@ -1,5 +1,6 @@
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
+        
         m = [[] for _ in range(numRows)]
         index, zigzag = 0, 0
         if numRows == 1 or numRows >= len(s):
@@ -17,4 +18,3 @@ class Solution:
             m[i] = "".join(m[i])
 
         return "".join(m)
-
