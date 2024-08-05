@@ -1,5 +1,6 @@
 class Solution {
     public String convert(String s, int numRows) {
+        /**
         List<Character>[] al = new ArrayList[numRows];
         if (numRows == 1 || numRows >= s.length())
             return s;
@@ -25,5 +26,35 @@ class Solution {
         }
 
         return result.toString();
+
+        
+         */
+        
+        if (numRows == 1 || s.length() < numRows) {
+            return s;
+        }
+        int len = s.length();
+        char[] result = new char[len];
+        int diff = (numRows - 1) * 2;
+        int count = 0;
+        int i = 0;
+
+        while (i < numRows) {
+            int temp = i;
+            while (count < len && temp < len) {
+                result[count++] = s.charAt(temp);
+                if (i == 0 || i == (numRows - 1)) {
+                    temp += diff;
+                } else {
+                    temp += diff - i*2;
+                    if (temp < len) {
+                        result[count++] = s.charAt(temp);
+                        temp += i*2;
+                    }
+                }
+            }
+            i++;
+        }
+        return new String(result);
     }
 }
