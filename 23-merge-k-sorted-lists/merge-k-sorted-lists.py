@@ -7,9 +7,9 @@ class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         import math
 
+
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        
         l = []
         if len(lists) == 0 or lists == [[]]:
             return None
@@ -22,14 +22,12 @@ class Solution:
                     l.append(h.val)
                     h = h.next
             l.sort()
-            
             result = None
-            for i in  l:
+            for i in l:
                 if result is None:
                     result = ListNode(i)
                     head = result
                 else:
                     head.next = ListNode(i)
                     head = head.next
-
             return result
