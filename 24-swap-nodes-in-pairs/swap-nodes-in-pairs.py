@@ -9,19 +9,16 @@ class Solution:
         if head is None or head.next is None:
             return head
 
-        result, lag = head.next, ListNode(0)
-        left, right = head, head.next
+        dummyHead = ListNode(-1, head)
+        curr = dummyHead
 
-        while left and left.next:
-            temp = right.next
-            right.next = left
-            left.next = temp
-            lag.next = right
-            lag = left
-            left = left.next
-            if left:
-                right = left.next
-            else:
-                break
-            
-        return result
+        while curr and curr.next and curr.next.next:
+            nextNode = curr.next
+            curr.next = curr.next.next
+            curr = curr.next
+            tempNodes = curr.next
+            curr.next = nextNode
+            curr = curr.next
+            curr.next = tempNodes
+        
+        return dummyHead.next
