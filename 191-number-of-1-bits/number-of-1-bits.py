@@ -1,11 +1,6 @@
 class Solution:
     def hammingWeight(self, n: int) -> int:
-        binary = "{0:b}".format(n)
-        count = 0
-        for b in binary:
-            if b == '1':
-                count += 1
-        return count
+        return bin(n).count('1')
 
         """
         ones = 0
