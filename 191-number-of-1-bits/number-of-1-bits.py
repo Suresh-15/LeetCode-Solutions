@@ -4,8 +4,7 @@ class Solution:
         
         ones = 0
         while n > 0:
-            if n % 2 == 1:
-                ones += 1
-            n //= 2
-        
+            bit = n & 1
+            ones += bit
+            n = n >> 1
         return ones
