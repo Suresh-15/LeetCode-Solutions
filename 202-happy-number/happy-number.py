@@ -9,11 +9,8 @@ class Solution:
             return sqs
 
         history = set()
-        while n != 1:
+        while n > 1 and n not in history:
+            history.add(n)
             n = sum_of_squares(n)
-            if n in history:
-                return False
-            else:
-                history.add(n)
-                
-        return True
+
+        return n == 1
