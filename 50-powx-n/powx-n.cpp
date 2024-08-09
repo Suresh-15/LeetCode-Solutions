@@ -1,20 +1,19 @@
 class Solution {
 public:
-    double myPow(double x, int n) {
-        double ans = 1.0;
-        long nTemp = n;
-        if (n < 0)
-            nTemp = nTemp * -1;
+    double pow(double x, int n) {
+        if (n == 0)
+            return 1;
+        n = abs(n);
+        double temp = myPow(x, n / 2);
+        if (n % 2 == 0)
+            return temp * temp * 1.0;
+        else
+            return x * temp * temp * 1.0;
+    }
 
-        while (nTemp > 0) {
-            if (nTemp % 2 == 0) {
-                x *= x;
-                nTemp /= 2;
-            } else {
-                ans *= x;
-                nTemp--;
-            }
-        }
-        return n < 0 ? 1 / ans : ans;
+    double myPow(double x, int n) {
+        if (n > 0)
+            return pow(x, n);
+        return 1 / pow(x, n);
     }
 };
