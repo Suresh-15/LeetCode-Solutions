@@ -6,9 +6,7 @@ public:
             numbers.push_back(to_string(num));
 
         auto compare = [](const string& x, const string& y) {
-            string xy = x + y;
-            string yx = y + x;
-            return xy > yx;
+            return x + y > y + x;
         };
 
         sort(numbers.begin(), numbers.end(), compare);
