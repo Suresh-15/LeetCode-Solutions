@@ -11,7 +11,7 @@ public:
 
         sort(numbers.begin(), numbers.end(), compare);
         string result;
-        for (string t : numbers)
+        for (const string& t : numbers)
             result += t;
         return result[0] == '0' ? "0" : result;
     }
