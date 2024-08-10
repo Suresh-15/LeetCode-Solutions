@@ -3,20 +3,23 @@ class Solution {
         int m, sqs = 0;
         while (i > 0) {
             m = i % 10;
-            sqs += Math.pow(m, 2);
+            sqs += m * m;
             i = i / 10;
         }
         return sqs;
     }
 
     public boolean isHappy(int n) {
-        ArrayList<Integer> al = new ArrayList<>();
-        while (n > 1) {
-            if (al.contains(n))
-                return false;
-            al.add(n);
-            n = sum_of_squares(n);
-        }
+        int slow = n;
+        int fast = n;
+
+        do {
+            slow = sum_of_squares(slow);
+            fast = sum_of_squares(sum_of_squares(fast));
+            if (slow == 1) {
+                return true;
+            }
+        } while (slow != fast);
         return n == 1;
     }
 }
