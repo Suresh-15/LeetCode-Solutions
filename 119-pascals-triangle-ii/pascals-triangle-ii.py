@@ -23,4 +23,5 @@ class Solution:
             denominator = factorial(i) * factorial(rowIndex - i)
             result.append(numerator // denominator)
         result.append(1)
+        
         return result
