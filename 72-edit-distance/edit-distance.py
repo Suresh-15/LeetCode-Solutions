@@ -25,7 +25,9 @@ class Solution:
             if p2 == -1:
                 return p1 + 1
             if word1[p1] == word2[p2]:
-                return helper(p1-1, p2-1)
-            return min(helper(p1-1, p2), helper(p1, p2-1), helper(p1-1, p2-1)) + 1
-        
-        return helper(len(word1)-1, len(word2)-1)
+                return helper(p1 - 1, p2 - 1)
+            return (
+                min(helper(p1 - 1, p2), helper(p1, p2 - 1), helper(p1 - 1, p2 - 1)) + 1
+            )
+
+        return helper(len(word1) - 1, len(word2) - 1)
