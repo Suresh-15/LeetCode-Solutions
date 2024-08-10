@@ -10,3 +10,9 @@ class Solution:
         while num // 10 != 0:
             num = sum_of_digits(num)
         return num
+
+        """
+        while num >= 10:
+            num = sum([int(i) for i in str(num)])
+        return num
+        """
