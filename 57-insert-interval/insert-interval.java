@@ -1,31 +1,28 @@
 class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        int newStart = newInterval[0];
-        int newEnd = newInterval[1];
-        int i = 0, n = intervals.length;
-        List<int[]> result = new ArrayList<>();
-
-        while (i < n && newStart > intervals[i][0]) {
-            result.add(intervals[i]);
+        int start = newInterval[0], end = newInterval[1];
+        int i = 0, n = intervals.length, f = -1;
+        while (i < n && start > intervals[i][1]) {
+            f = i;
             i++;
         }
-
-        if (result.isEmpty() || result.get(result.size() - 1)[1] < newStart) {
-            result.add(newInterval);
-        } else {
-            result.get(result.size() - 1)[1] = Math.max(result.get(result.size() - 1)[1], newEnd);
+        while (i < n && intervals[i][0] <= end) {
+            start = Math.min(start, intervals[i][0]);
+            end = Math.max(end, intervals[i][1]);
+            i++;
         }
+        int[][] result = new int[f + 2 + n - i][2];
+        int ci = 0;
+        while (ci <= f) {
+            result[ci] = intervals[ci];
+            ci++;
+        }
+        result[ci++] = new int[] { start, end };
         while (i < n) {
-            int start = intervals[i][0];
-            int end = intervals[i][1];
-
-            if (result.get(result.size() - 1)[1] < start) {
-                result.add(intervals[i]);
-            } else {
-                result.get(result.size() - 1)[1] = Math.max(result.get(result.size() - 1)[1], end);
-            }
+            result[ci] = intervals[i];
+            ci++;
             i++;
         }
-        return result.toArray(new int[result.size()][]);
+        return result;
     }
 }
