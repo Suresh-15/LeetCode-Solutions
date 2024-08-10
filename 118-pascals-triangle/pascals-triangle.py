@@ -1,7 +1,7 @@
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
+        """
         res = [[1]]
-
         for i in range(numRows - 1):
             temp = [0] + res[i] + [0]
             newrow = []
@@ -9,8 +9,8 @@ class Solution:
                 newrow.append(temp[i - 1] + temp[i])
             res.append(newrow)
         return res
-        
         """
+        
         def factorial(i):
             fact = 1
             for i in range(1, i+1):
@@ -32,4 +32,4 @@ class Solution:
         for i in range(1, numRows):
             result.append(getRow(i))
         return result
-        """
+        
