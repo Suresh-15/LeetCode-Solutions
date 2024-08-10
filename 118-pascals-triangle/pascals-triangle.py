@@ -10,10 +10,10 @@ class Solution:
             res.append(newrow)
         return res
         """
-        
+
         def factorial(i):
             fact = 1
-            for i in range(1, i+1):
+            for i in range(1, i + 1):
                 fact *= i
             return fact
 
@@ -32,4 +32,3 @@ class Solution:
         for i in range(1, numRows):
             result.append(getRow(i))
         return result
-        
