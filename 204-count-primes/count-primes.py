@@ -1,14 +1,10 @@
 class Solution:
     def countPrimes(self, n: int) -> int:
-        if n <= 2:
+        if n < 3:
             return 0
-
-        ref = [True] * (n)
-        i = 2
-        
-        while (i * i) < n:
-            if ref[i]:
-                for j in range(i * i, n, i):
-                    ref[j] = False
-            i += 1
-        return ref.count(True) - 2
+            
+        isP = [1] * (n // 2)
+        for i in range(3, int(n**0.5) + 1, 2):
+            if isP[i // 2]:
+                isP[(i * i) // 2 :: i] = [0] * len(isP[(i * i) // 2 :: i])
+        return sum(isP)
