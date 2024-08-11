@@ -7,7 +7,7 @@
 
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        """
+        
         if not (head) or not (head.next):
             return head
         prev, curr, next = None, head, None
@@ -17,8 +17,8 @@ class Solution:
             prev = curr
             curr = next
         return prev
+        
         """
-
         if head is None or head.next is None:
             return head
         
@@ -26,3 +26,4 @@ class Solution:
         head.next.next = head
         head.next = None
         return newHead 
+        """
