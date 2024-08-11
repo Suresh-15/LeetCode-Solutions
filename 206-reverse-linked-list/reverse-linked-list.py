@@ -10,12 +10,13 @@ class Solution:
         
         if not (head) or not (head.next):
             return head
-        prev, curr, next = None, head, None
+        prev, curr = None, head
         while curr is not None:
-            next = curr.next
+            temp = curr.next
             curr.next = prev
             prev = curr
-            curr = next
+            curr = temp
+
         return prev
         
         """
