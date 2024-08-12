@@ -1,5 +1,39 @@
 class Solution {
 public:
+    void swap(char& a, char& b) {
+        char t = a;
+        a = b;
+        b = t;
+    }
+
+    bool isVowel(char a) {
+        if (a == 'a' || a == 'A' || a == 'e' || a == 'E' || a == 'i' ||
+            a == 'I' || a == 'o' || a == 'O' || a == 'u' || a == 'U')
+            return true;
+        else
+            return false;
+    }
+
+    string reverseVowels(string s) {
+        int l = 0, r = s.length() - 1;
+        while (l <= r) {
+            bool left = isVowel(s[l]);
+            bool right = isVowel(s[r]);
+            if (left && right) {
+                swap(s[l], s[r]);
+                l++;
+                r--;
+            } else if (!left) {
+                l++;
+            } else if (!right) {
+                r--;
+            }
+        }
+
+        return s;
+    }
+
+    /*
     string reverseVowels(string s) {
         vector<char> c;
         vector<int> indices;
@@ -19,4 +53,5 @@ public:
         }
         return s;
     }
+    */
 };
