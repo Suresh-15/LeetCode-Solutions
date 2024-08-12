@@ -1,29 +1,22 @@
 class Solution {
     public int thirdMax(int[] nums) {
-        
-        List<Integer> al = new ArrayList<>();
-        for (int i=0; i<nums.length; i++) {
-            if (!al.contains(nums[i]))
-                al.add(nums[i]);
-        }
-        if (al.size() <= 2){
-            return Collections.max(al);
-        }
+        long max1 = Long.MIN_VALUE;
+        long max2 = Long.MIN_VALUE;
+        long max3 = Long.MIN_VALUE;
 
-        int least = Integer.MIN_VALUE;
-        int first = least, second = least, third = least;
-        for (int i : al) {
-            if (i > first){
-                third = second;
-                second = first;
-                first = i;
-            } else if (i > second) {
-                third = second;
-                second = i;
-            } else if (i > third) {
-                third = i;
+        for (int n : nums) {
+            if (n > max1) {
+                max3 = max2;
+                max2 = max1;
+                max1 = n;
+            } else if (n > max2 && n < max1) {
+                max3 = max2;
+                max2 = n;
+            } else if (n > max3 && n < max2) {
+                max3 = n;
             }
         }
-        return third;
+
+        return max3 != Long.MIN_VALUE ? (int) max3 : (int) max1;
     }
 }
