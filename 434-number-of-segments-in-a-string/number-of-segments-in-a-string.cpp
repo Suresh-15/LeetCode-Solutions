@@ -6,13 +6,12 @@ public:
         while (i < n) {
             while (i < n && s[i] == ' ')
                 i += 1;
-            bool add = false;
-            while (i < n && s[i] != ' ') {
+            if (i >= s.size())
+                break;
+            while (i < n && s[i] != ' ') 
                 i += 1;
-                add = true;
-            }
-            if (add)
-                count += 1;
+                
+            count += 1;
         }
         return count;
     }
