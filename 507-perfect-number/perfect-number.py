@@ -2,14 +2,12 @@ class Solution(object):
     def checkPerfectNumber(self, num):
         if num == 1:
             return False
-
-        answer, i = 1, 2
-        while i * i < num:
+        answer = 1
+        for i in range(2, (int(sqrt(num)) + 1)):
             if num % i == 0:
-                answer += i + num // i
-            i += 1
-        if i * i == num:
-            answer += i
-
-        return answer == num
+                answer += i
+                answer += num / i
+        if answer == num:
+            return True
+        return False
         
