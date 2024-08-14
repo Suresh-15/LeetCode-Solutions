@@ -1,3 +1,5 @@
 class Solution:
     def findTheDifference(self, s: str, t: str) -> str:
-        return chr(reduce(operator.xor, map(ord, s + t)))
+        for i in 'abcdefghijklmnopqrstuvwxyz':
+            if t.count(i) != s.count(i):
+                return i
