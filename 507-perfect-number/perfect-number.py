@@ -1,5 +1,5 @@
-class Solution:
-    def checkPerfectNumber(self, num: int) -> bool:
+class Solution(object):
+    def checkPerfectNumber(self, num):
         if num == 1:
             return False
 
@@ -12,3 +12,4 @@ class Solution:
             answer += i
 
         return answer == num
+        
