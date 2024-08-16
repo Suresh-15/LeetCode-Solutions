@@ -1,21 +1,16 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        result = []
-        output = []
-        self.backtrack(n, 0, 0, output, result)
-        return result
+        generated_parenthesis = []
+        def backtrack(num_open, num_closed, parens):
+            if num_open == n and num_closed == n:
+                generated_parenthesis.append(parens)
+                return
+            if num_open < num_closed:
+                return
+            if num_open < n:
+                backtrack(num_open + 1, num_closed, parens + '(')
+            if num_closed < num_open:
+                backtrack(num_open, num_closed + 1, parens + ')')
 
-    def backtrack(self, n, leftCount, rightCount, output, result):
-        if leftCount >= n and rightCount >= n:
-            outputStr = "".join(output)
-            result.append(outputStr)
-
-        if leftCount < n:
-            output.append("(")
-            self.backtrack(n, leftCount + 1, rightCount, output, result)
-            output.pop()
-
-        if rightCount < leftCount:
-            output.append(")")
-            self.backtrack(n, leftCount, rightCount + 1, output, result)
-            output.pop()
+        backtrack(0, 0, '')
+        return generated_parenthesis
