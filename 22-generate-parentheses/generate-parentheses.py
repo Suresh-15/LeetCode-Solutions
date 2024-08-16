@@ -1,5 +1,5 @@
-class Solution:
-    def generateParenthesis(self, n: int) -> List[str]:
+class Solution(object):
+    def generateParenthesis(self, n):
         generated_parenthesis = []
         def backtrack(num_open, num_closed, parens):
             if num_open == n and num_closed == n:
@@ -14,3 +14,4 @@ class Solution:
 
         backtrack(0, 0, '')
         return generated_parenthesis
+        
