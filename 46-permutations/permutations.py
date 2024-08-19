@@ -1,15 +1,17 @@
 class Solution(object):
     def permute(self, nums):
-        def backtrack(start):
-            if start == len(nums):
-                result.append(nums[:])
-                return
-            for i in range(start, len(nums)):
-                nums[start], nums[i] = nums[i], nums[start]
-                backtrack(start + 1)
-                nums[start], nums[i] = nums[i], nums[start]
+        def backtrack(nums):
+            if not nums:
+                return []
+            elif len(nums)==1:
+                return [nums]
+            result = []
+            for i,num in enumerate(nums):
+                remained_perm = backtrack(nums[:i]+nums[i+1:])
+                for perm in remained_perm:
+                    result.append([num]+perm)
+            return result
+        
+        return backtrack(nums)
 
-        result = []
-        backtrack(0)
-        return result
         
