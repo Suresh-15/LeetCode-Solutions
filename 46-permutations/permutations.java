@@ -1,22 +1,29 @@
 class Solution {
-    public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> result = new ArrayList<>();
-        backtrack(nums, new ArrayList<>(), result);
-        return result;
+    List<List<Integer>> result;
+
+    private void backtrack(int[] nums, int start) {
+        if (start == nums.length - 1) {
+            List<Integer> x = new ArrayList<Integer>();
+            for (int i : nums) {
+                x.add(i);
+            }
+            result.add(x);
+        }
+        for (int i = start; i < nums.length; i++) {
+            int temp = nums[start];
+            nums[start] = nums[i];
+            nums[i] = temp;
+            backtrack(nums, start + 1);
+            temp = nums[start];
+            nums[start] = nums[i];
+            nums[i] = temp;
+        }
     }
 
-    public void backtrack(int[] nums, List<Integer> temp, List<List<Integer>> result) {
-        if (temp.size() == nums.length) {
-            result.add(new ArrayList<>(temp));
-            return;
-        }
-        for (int i = 0; i < nums.length; i++) {
-            if (temp.contains(nums[i]))
-                continue;
-            temp.add(nums[i]);
-            backtrack(nums, temp, result);
-            temp.remove(temp.size() - 1);
-        }
+    public List<List<Integer>> permute(int[] nums) {
+        result = new ArrayList<>();
+        backtrack(nums, 0);
+        return result;
 
     }
 }
