@@ -4,11 +4,14 @@ class Solution:
 
         if n == 1:
             return True
-        elif n < 1:
+        if n < 1:
             return False
         elif n % 4 != 0:
             return False
-        elif n == 4:
-            return True
         else:
-            return self.isPowerOfFour(n/4)
+            count = 1
+            while 4 ** count <= n:
+                if 4**count == n:
+                    return True
+                count += 1
+            return False
