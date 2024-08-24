@@ -1,21 +1,39 @@
 class Solution {
-    public int romanToInt(String s) {
-        HashMap<Character, Integer> V = new HashMap<Character, Integer>();
-        V.put('I', 1);  V.put('V', 5);  V.put('X', 10);
-        V.put('L', 50); V.put('C', 100); V.put('D', 500);
-        V.put('M', 1000);
+    public int numeral(char r) {
+        if (r == 'I')
+            return 1;
+        if (r == 'V')
+            return 5;
+        if (r == 'X')
+            return 10;
+        if (r == 'L')
+            return 50;
+        if (r == 'C')
+            return 100;
+        if (r == 'D')
+            return 500;
+        if (r == 'M')
+            return 1000;
+        return -1;
+    }
 
-        int result = 0, i = 0, n = s.length();
-        while (i < n) {
-            if (i < n - 1 && V.get(s.charAt(i + 1)) > V.get(s.charAt(i))) {
-                result += (V.get(s.charAt(i + 1)) - V.get(s.charAt(i)));
-                i += 2;
-            } else {
-                result += V.get(s.charAt(i));
-                i += 1;
-            }
+    public int romanToInt(String s) {
+        int result = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int s1 = numeral(s.charAt(i));
+            if (i + 1 < s.length()) {
+                int s2 = numeral(s.charAt(i + 1));
+                if (s1 >= s2) {
+                    result = result + s1;
+                } else {
+                    result = result + (s2 - s1);
+                    i++;
+                }
+            } else
+                result = result + s1;
         }
         return result;
+
     }
 }
 
