@@ -9,5 +9,5 @@ class Solution:
             else:
                 result += V[s[i]]
                 i += 1
-        
-        return result
+        else:
+            return result
