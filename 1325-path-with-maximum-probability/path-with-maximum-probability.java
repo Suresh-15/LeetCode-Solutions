@@ -1,52 +1,29 @@
 class Solution {
-    static class Pair {
-        int node;
-        double prob;
-        Pair(int node, double prob) {
-            this.node = node;
-            this.prob = prob;
-        }
-    }
-
     public double maxProbability(
-        int n, int[][] edges, double[] succProb, int start, int end
+        int n, int[][] edges, double[] succProb, 
+        int start_node, int end_node
     ) {
-        List<List<Pair>> graph = new ArrayList<>();
-        for (int i = 0; i < n; i++) 
-            graph.add(new ArrayList<>());
 
-        for (int i = 0; i < edges.length; i++) {
-            int a = edges[i][0], b = edges[i][1];
-            double prob = succProb[i];
-            graph.get(a).add(new Pair(b, prob));
-            graph.get(b).add(new Pair(a, prob));
-        }
+        double[] probs = new double[n];
+        probs[start_node] = 1;
+        for(int i = 0; i < n - 1; i++) {
+            boolean change = false;
+            for(int j = 0; j < edges.length; j++) {
+                int src = edges[j][0];
+                int dest = edges[j][1];
+                double prob = succProb[j];
 
-        PriorityQueue<Pair> maxHeap = new PriorityQueue<>((a, b) -> Double.compare(b.prob, a.prob));
-        maxHeap.add(new Pair(start, 1.0));
-
-        double[] maxProb = new double[n];
-        maxProb[start] = 1.0;
-
-        while (!maxHeap.isEmpty()) {
-            Pair current = maxHeap.poll();
-            int node = current.node;
-            double currProb = current.prob;
-
-            if (node == end) 
-                return currProb;
-
-            for (Pair neighbor : graph.get(node)) {
-                int nextNode = neighbor.node;
-                double edgeProb = neighbor.prob;
-                double newProb = currProb * edgeProb;
-
-                if (newProb > maxProb[nextNode]) {
-                    maxProb[nextNode] = newProb;
-                    maxHeap.add(new Pair(nextNode, newProb));
+                if(probs[src] * prob > probs[dest]) {
+                    probs[dest] = probs[src] * prob;
+                    change = true;
+                }
+                if(probs[dest] * prob > probs[src]) {
+                    probs[src] = probs[dest] * prob;
+                    change = true;
                 }
             }
+            if(change == false) break;
         }
-        return 0.0;
+        return probs[end_node];
     }
 }
