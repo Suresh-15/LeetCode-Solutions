@@ -1,33 +1,34 @@
 class Solution:
     def removeStones(self, stones: List[List[int]]) -> int:
-        n, M = len(stones), 10001
-        N = 2 * M + 1
-        root = list(range(N))
-        Size = [1] * N
-        merge = 0
-
-        def Find(x):
-            if x == root[x]:
-                return x
-            root[x] = Find(root[x])
-            return root[x]
-
-        def Union(x, y):
-            nonlocal merge
-            x, y = Find(x), Find(y)
-            if x == y:
-                return False
-            if Size[x] > Size[y]:
-                Size[x] += Size[y]
-                root[y] = x
+        n = len(stones)
+        rank = [1] * n
+        parent = [i for i in range(n)]
+        
+        def union(i, j):
+            i, j = find(i), find(j)
+            if i == j:
+                return 0
+            if rank[i] < rank[j]:
+                i, j = j, i
+            rank[i] += rank[j]
+            parent[j] = parent[i]
+            return 1
+        
+        def find(i):
+            while i != parent[i]:
+                parent[i] = i = parent[parent[i]]
+            return i
+        
+        rows, cols = {}, {}
+        removed = 0
+        for i, (row, col) in enumerate(stones):
+            if row in rows:
+                removed += union(i, rows[row])
             else:
-                Size[y] += Size[x]
-                root[x] = y
-            merge += 1
-            return True
-
-        cntRC = [False] * N
-        for i, j in stones:
-            Union(i, M + j)
-            cntRC[i] = cntRC[M + j] = True
-        return n - cntRC.count(True) + merge
+                rows[row] = i
+            if col in cols:
+                removed += union(i, cols[col])
+            else:
+                cols[col] = i
+        
+        return removed
