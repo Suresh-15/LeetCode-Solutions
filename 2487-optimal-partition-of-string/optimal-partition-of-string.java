@@ -1,17 +1,21 @@
 class Solution {
     public int partitionString(String s) {
-        List<String> al = new ArrayList<>();
-        String temp = "";
-        for (int i=0; i < s.length(); i++) {
-            if (!temp.contains(String.valueOf(s.charAt(i))))
-                temp = temp + String.valueOf(s.charAt(i));
-            else {
-                al.add(temp);
-                temp = String.valueOf(s.charAt(i));
-            }
-        }
-        al.add(temp);
+        int bitMask = 0;
+        int count = 1;
+        byte[] charss = new byte[s.length()];
+        s.getBytes(0, s.length(), charss, 0);
 
-        return al.size();
+        for (var ch : charss) {
+            int currentBit = 1 << ch;
+
+            if ((currentBit & bitMask) != 0) {
+                count++;
+                bitMask = currentBit;
+            } else {
+                bitMask = currentBit | bitMask;
+            }
+
+        }
+        return count;
     }
 }
