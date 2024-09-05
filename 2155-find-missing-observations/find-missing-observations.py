@@ -6,16 +6,6 @@ class Solution:
         if sum_of_second_list > 6 * n or sum_of_second_list < n:
             return []
 
-        second_list = [1] * n
-        if sum(second_list) == sum_of_second_list:
-            return second_list
-        else:
-            missing_sum = sum_of_second_list - n
-            for i in range(n):
-                second_list[i] += min(5, missing_sum)
-                missing_sum -= 5
-                if missing_sum <= 0:
-                    break
-
-        return second_list
+        quotient, remainder = divmod(sum_of_second_list, n)
+        return [quotient + (1 if i < remainder else 0) for i in range(n)]
             
