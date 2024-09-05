@@ -8,10 +8,13 @@ class Solution:
 
         second_list = [1] * n
         missing_sum = sum_of_second_list - n
+
         for i in range(n):
+            
             second_list[i] += min(5, missing_sum)
             missing_sum -= 5
+            
             if missing_sum <= 0:
                 break
-		
+
         return second_list
