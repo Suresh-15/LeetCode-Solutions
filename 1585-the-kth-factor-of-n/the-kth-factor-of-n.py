@@ -1,11 +1,16 @@
 class Solution:
     def kthFactor(self, n: int, k: int) -> int:
-        def find_factors(num):
-            factors = []
-            for i in range(1, num + 1):
-                if num % i == 0:
-                    factors.append(i)
-            return factors
+        root = sqrt(n)
+        for i in range(1, ceil(root)):
+            if n % i == 0:
+                k -= 1
+            if k == 0:
+                return i
 
-        factors = find_factors(n)
-        return factors[k - 1] if k <= len(factors) else -1
+        for i in range(floor(root), 0, -1):
+            if n % (n // i) == 0:
+                k -= 1
+            if k == 0:
+                return n // i
+
+        return -1
