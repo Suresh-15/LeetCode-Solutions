@@ -10,22 +10,19 @@ class Solution:
         self, nums: List[int], head: Optional[ListNode]
     ) -> Optional[ListNode]:
 
-        max_val = -1
-        for num in nums:
-            max_val = max(num, max_val)
-
-        freq = [False] * (max_val + 1)
-        for num in nums:
-            freq[num] = True
-
-        temp = ListNode()
-        current = temp
-
+        s = set(nums)
         while head:
-            if head.val >= len(freq) or not freq[head.val]:
-                current.next = head
-                current = current.next
+            if head.val not in s:
+                break
             head = head.next
-        current.next = None
-
-        return temp.next
+        if not head or not head.next:
+            return head
+        prev = head
+        curr = head.next
+        while curr:
+            if curr.val not in s:
+                prev.next = curr
+                prev = curr
+            curr = curr.next
+        prev.next = curr
+        return head
