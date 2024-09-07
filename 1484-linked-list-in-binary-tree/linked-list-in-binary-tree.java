@@ -24,21 +24,23 @@
  * }
  */
 
- 
 class Solution {
     public boolean isSubPath(ListNode head, TreeNode root) {
-        if (root == null)
-            return false;
-        if (checkPath(head, root))
-            return true;
-        return isSubPath(head, root.left) || isSubPath(head, root.right);
+        return dfs(head, head, root);
     }
 
-    private boolean checkPath(ListNode head, TreeNode root) {
-        if (head == null)
+    boolean dfs(ListNode head, ListNode curr, TreeNode root) {
+        if (curr == null)
             return true;
-        if (root == null || head.val != root.val)
+        if (root == null)
             return false;
-        return checkPath(head.next, root.left) || checkPath(head.next, root.right);
+        if (curr.val == root.val)
+            curr = curr.next;
+        else if (head.val == root.val)
+            head = head.next;
+        else
+            curr = head;
+        return dfs(head, curr, root.left) || dfs(head, curr, root.right);
     }
+
 }
