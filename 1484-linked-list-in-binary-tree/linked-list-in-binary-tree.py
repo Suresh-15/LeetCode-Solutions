@@ -13,16 +13,26 @@
 
 
 class Solution:
-    def isSubPath(self, head: Optional[ListNode], root: Optional[TreeNode]) -> bool:
-        def checkPath(head, root):
-            if not head:
-                return True
-            if not root or head.val != root.val:
-                return False
-            return checkPath(head.next, root.left) or checkPath(head.next, root.right)
+    def check_next_node(self, head, root):
+        checkLeft, checkRight = False, False
+        if not head:
+            return True
+        if root.left and root.left.val == head.val:
+            checkLeft = self.check_next_node(head.next, root.left)
+        if root.right and root.right.val == head.val:
+            checkRight = self.check_next_node(head.next, root.right)
 
+        return checkLeft or checkRight
+
+    def isSubPath(self, head: Optional[ListNode], root: Optional[TreeNode]) -> bool:
         if not root:
             return False
-        if checkPath(head, root):
-            return True
-        return self.isSubPath(head, root.left) or self.isSubPath(head, root.right)
+
+        if root.val == head.val:
+            if self.check_next_node(head.next, root):
+                return True
+
+        checkLeft = self.isSubPath(head, root.left)
+        checkRight = self.isSubPath(head, root.right)
+
+        return checkLeft or checkRight
