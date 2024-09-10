@@ -15,7 +15,6 @@ class Solution:
                 a, b = b, a % b
             return a
 
-
         temp = head
         while temp.next:
             gcd = GCD(temp.val, temp.next.val)
