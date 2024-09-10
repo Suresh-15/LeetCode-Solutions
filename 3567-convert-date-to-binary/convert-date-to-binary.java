@@ -1,13 +1,20 @@
 class Solution {
     public String convertDateToBinary(String date) {
-        int y = Integer.parseInt(date.substring(0, 4));
-        int m = Integer.parseInt(date.substring(5, 7));
-        int d = Integer.parseInt(date.substring(8));
+        int num1 = Integer.parseInt(date.substring(0, 4));
+        int num2 = Integer.parseInt(date.substring(5, 7));
+        int num3 = Integer.parseInt(date.substring(8, 10));
 
-        String d1 = String.valueOf(Integer.toBinaryString(d));
-        String m1 = String.valueOf(Integer.toBinaryString(m));
-        String y1 = String.valueOf(Integer.toBinaryString(y));
-    
-        return y1 + "-" + m1 + "-" + d1;
+        StringBuilder sb = new StringBuilder();
+        String strb1 = Integer.toBinaryString(num1);
+        String strb2 = Integer.toBinaryString(num2);
+        String strb3 = Integer.toBinaryString(num3);
+
+        sb.append(strb1);
+        sb.append("-");
+        sb.append(strb2);
+        sb.append("-");
+        sb.append(strb3);
+
+        return sb.toString();
     }
 }
