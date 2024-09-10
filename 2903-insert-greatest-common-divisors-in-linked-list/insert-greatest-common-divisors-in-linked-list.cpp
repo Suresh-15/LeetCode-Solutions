@@ -9,13 +9,12 @@
  * };
  */
 
-
 class Solution {
 public:
     int GCD(int a, int b) {
         if (a == 1 || b == 1)
             return 1;
-        while (b != 0){
+        while (b != 0) {
             int temp = b;
             b = a % b;
             a = temp;
