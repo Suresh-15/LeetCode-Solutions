@@ -1,26 +1,15 @@
 class Solution {
     public int minBitFlips(int start, int goal) {
-        if (start == goal)
-            return 0;
-        
-        String sbin = Integer.toBinaryString(start);
-        String ebin = Integer.toBinaryString(goal);
+        int count = 0;
 
-        int s = sbin.length(), e = ebin.length();
-        int difference = Math.abs(s - e);
-        if (s < e) {
-            for (int i = 0; i< difference; i++) 
-                sbin = "0" + sbin;
-        } else  {
-            for (int i = 0; i< difference; i++)
-                ebin = "0" + ebin;
+        while (start > 0 || goal > 0) {
+            int bitStart = (start & 1);
+            int bitGoal = (goal & 1);
+            count += (bitStart != bitGoal) ? 1 : 0;
+            start = (start > 0) ? start >> 1 : 0;
+            goal = (goal > 0) ? goal >> 1 : 0;
         }
 
-        int count = 0;
-        for (int i = 0; i < sbin.length(); i++)
-            if (sbin.charAt(i) != ebin.charAt(i))
-                count += 1;
-        return count;
-        
+        return count;       
     }
 }
