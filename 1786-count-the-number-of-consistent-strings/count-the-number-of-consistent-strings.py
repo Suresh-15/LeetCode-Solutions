@@ -3,7 +3,7 @@ class Solution:
         count = 0
         characters = set(allowed)
         for word in words:
-            for char in word:
+            for char in set(word):
                 if char not in characters:
                     count += 1
                     break
