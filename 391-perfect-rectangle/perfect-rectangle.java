@@ -1,42 +1,31 @@
 class Solution {
     public boolean isRectangleCover(int[][] rectangles) {
-        if (rectangles.length == 0 || rectangles[0].length == 0)
-            return false;
+        TreeSet<int[]> set = new TreeSet<int[]>((a, b) -> {
+            if (a[3] <= b[1]) return -1;
+            else if (a[1] >= b[3]) return 1;
+            else if (a[2] <= b[0]) return -1;
+            else if (a[0] >= b[2]) return 1;
+            else return 0;
+        });
+		int minX = Integer.MAX_VALUE, minY = Integer.MAX_VALUE;
+        int maxA = Integer.MIN_VALUE, maxB = Integer.MIN_VALUE;
+		int area = 0;
+		for (int[] i : rectangles) {
+			if (i[0] < minX)
+				minX = i[0];
 
-        int x1 = Integer.MAX_VALUE;
-        int x2 = Integer.MIN_VALUE;
-        int y1 = Integer.MAX_VALUE;
-        int y2 = Integer.MIN_VALUE;
+			if (i[1] < minY)
+				minY = i[1];
 
-        HashSet<String> set = new HashSet<String>();
-        int area = 0;
+			if (i[2] > maxA)
+				maxA = i[2];
 
-        for (int[] rect : rectangles) {
-            x1 = Math.min(rect[0], x1);
-            y1 = Math.min(rect[1], y1);
-            x2 = Math.max(rect[2], x2);
-            y2 = Math.max(rect[3], y2);
+			if (i[3] > maxB)
+				maxB = i[3];
+			area += (i[2] - i[0]) * (i[3] - i[1]);
+            if (!set.add(i)) return false;
+		}
 
-            area += (rect[2] - rect[0]) * (rect[3] - rect[1]);
-
-            String s1 = rect[0] + " " + rect[1];
-            String s2 = rect[0] + " " + rect[3];
-            String s3 = rect[2] + " " + rect[3];
-            String s4 = rect[2] + " " + rect[1];
-
-            if (!set.add(s1))
-                set.remove(s1);
-            if (!set.add(s2))
-                set.remove(s2);
-            if (!set.add(s3))
-                set.remove(s3);
-            if (!set.add(s4))
-                set.remove(s4);
-        }
-
-        if (!set.contains(x1 + " " + y1) || !set.contains(x1 + " " + y2) || !set.contains(x2 + " " + y1) || !set.contains(x2 + " " + y2) || set.size() != 4)
-            return false;
-
-        return area == (x2 - x1) * (y2 - y1);
+		return area == (maxA - minX) * (maxB - minY);
     }
 }
