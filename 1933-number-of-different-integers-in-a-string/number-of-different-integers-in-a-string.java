@@ -1,27 +1,29 @@
 class Solution {
     public int numDifferentIntegers(String word) {
-        StringBuffer sb = new StringBuffer(word);
-        for (int i=0; i<word.length(); i++) {
+        Set<String> s = new HashSet<>();
+        int n = word.length();
+        int ind = 0;
+        boolean v = false;
+        for (int i = 0; i < n; i++) {
             char ch = word.charAt(i);
-            if (!Character.isDigit(ch)) sb.setCharAt(i, '\s');
-        }
-
-        String[] nums = sb.toString().split(" ");
-        Set<String> st = new HashSet<>();
-        for (int i=0; i<nums.length; i++) {
-            if (!nums[i].trim().equals("")) {
-                StringBuffer sb2 = new StringBuffer(nums[i].trim());
-                int j =0;
-                while (sb2.length() > 0) {
-                    char ch = sb2.charAt(j);
-                    if (ch != '0') break;
-                    sb2.deleteCharAt(j);
+            if (ch >= '0' && ch <= '9') {
+                if (!v) 
+                    ind = i;
+                v = true;
+            } else {
+                if (v) {
+                    while (word.charAt(ind) == '0') 
+                        ind++;
+                    s.add(word.substring(ind, i));
                 }
-
-                st.add(sb2.toString());
+                v = false;
             }
         }
-
-        return st.size();
+        if (v) {
+            while (ind < n && word.charAt(ind) == '0') 
+                ind++;
+            s.add(word.substring(ind));
+        }
+        return s.size();
     }
 }
