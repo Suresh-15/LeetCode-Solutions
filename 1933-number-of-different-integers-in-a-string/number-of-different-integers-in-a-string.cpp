@@ -1,28 +1,41 @@
 class Solution {
+private:
+    static bool IsDigit(char ch) { return (ch >= 48) && (ch <= 57); }
+
+    static std::string StripLeadingZeroes(const std::string& str) {
+        int index = 0;
+        while ((index < str.size()) && (str[index] == '0'))
+            ++index;
+
+        std::string ans;
+        for (int i = index; i < str.size(); ++i)
+            ans.push_back(str[i]);
+
+        if (ans.size() <= 0)
+            return "0";
+
+        return ans;
+    }
+
 public:
-    int numDifferentIntegers(string word) {
-        int i = 0, ans = 0;
-        set<string> s;
-        while (i < word.length()) {
-            bool flag = false;
-            string temp = "";
-            while (isdigit(word[i])) {
-                temp += word[i];
-                flag = true;
-                i++;
+    int numDifferentIntegers(const std::string& word) {
+        std::set<std::string> uniqueNums;
+        std::string num;
+        bool bNumFound = false;
+        for (int i = 0; i < word.size(); ++i) {
+            if (IsDigit(word[i])) {
+                num.push_back(word[i]);
+                bNumFound = true;
+            } else if (bNumFound) {
+                uniqueNums.insert(StripLeadingZeroes(num));
+                num.clear();
+                bNumFound = false;
             }
-            if (flag == true) {
-                int t = 0;
-                while (temp[t] == '0')
-                    t++;
-                if (temp.substr(t, temp.size() - t) != "0")
-                    s.insert(temp.substr(t, temp.size() - t));
-            }
-
-            while (isalpha(word[i])) 
-                i++;
-
         }
-        return s.size();
+
+        if (bNumFound)
+            uniqueNums.insert(StripLeadingZeroes(num));
+
+        return uniqueNums.size();
     }
 };
