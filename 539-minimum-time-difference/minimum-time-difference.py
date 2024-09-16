@@ -1,11 +1,19 @@
 class Solution:
     def findMinDifference(self, timePoints: List[str]) -> int:
-        def convert(time):
-            return int(time[:2]) * 60 + int(time[3:])
+        def getMinutes(s):
+            time = s.split(":")
+            return int(time[0]) * 60 + int(time[1])
 
-        minutes = list(map(convert, timePoints))
-        minutes.sort()
+        times, points = set(), []
+        for i in timePoints:
+            s = getMinutes(i)
+            if s in times:
+                return 0
+            times.add(s)
+            points.append(s)
 
-        return min(
-            (y - x) % (24 * 60) for x, y in zip(minutes, minutes[1:] + minutes[:1])
-        )
+        points.sort()
+        m = 24 * 60 - points[-1] + points[0]
+        for i in range(len(points) - 1):
+            m = min(m, points[i + 1] - points[i])
+        return m
