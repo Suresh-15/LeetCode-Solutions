@@ -1,21 +1,28 @@
 class Solution:
+    def __init__(self):
+        self.map = {}
+
     def diffWaysToCompute(self, expression: str) -> List[int]:
+        if expression in self.map:
+            return self.map[expression]
+        
         result = []
         for i in range(len(expression)):
-            oper = expression[i]
-            if oper == "+" or oper == "-" or oper == "*":
-                sub_str1 = expression[0 : i]
-                sub_str2 = expression[i + 1 : ]
-                s1 = self.diffWaysToCompute(sub_str1)
-                s2 = self.diffWaysToCompute(sub_str2)
-                for i in s1:
-                    for j in s2:
-                        if oper == "*":
-                            result.append(int(i) * int(j))
-                        if oper == "+":
-                            result.append(int(i) + int(j))
-                        if oper == "-":
-                            result.append(int(i) - int(j))
-        if len(result) == 0:
+            ch = expression[i]
+            if ch in '*+-':
+                left = self.diffWaysToCompute(expression[:i])
+                right = self.diffWaysToCompute(expression[i+1:])
+                for l in left:
+                    for r in right:
+                        if ch == "+":
+                            result.append(l+r)
+                        elif ch== '-':
+                            result.append(l-r)
+                        elif ch== '*':
+                            result.append(l*r)
+
+        if not result:
             result.append(int(expression))
+
+        self.map[expression] = result
         return result
