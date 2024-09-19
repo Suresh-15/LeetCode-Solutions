@@ -1,9 +1,9 @@
 class Solution {
     List<Integer>[][] dp;
 
-    public List<Integer> diffWaysToCompute(String ep) {
-        dp = new ArrayList[ep.length()][ep.length()];
-        return fun(ep, 0, ep.length() - 1);
+    public List<Integer> diffWaysToCompute(String exp) {
+        dp = new ArrayList[exp.length()][exp.length()];
+        return fun(exp, 0, exp.length() - 1);
     }
 
     private List<Integer> fun(String a, int start, int end) {
