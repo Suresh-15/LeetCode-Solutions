@@ -1,17 +1,22 @@
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
-        def backtrack(start):
-            if start == len(nums):
-                res.add(tuple(nums[:]))
-                return
-            for i in range(start, len(nums)):
-                nums[start], nums[i] = nums[i], nums[start]
-                backtrack(start + 1)
-                nums[start], nums[i] = nums[i], nums[start]
-        
-        res, result = set(), list()
-        backtrack(0)
+        res = []
+        nums = sorted(nums)
+        init_ind = {k for k in range(len(nums))}
+        def dfs(indices,path,c):
+            if c == len(nums):
+                res.append(path)
+            counter = 0
+            for ind in indices:
+                if counter > 0 and nums[ind] == nums[prev_ind]:
+                    counter += 1
+                    prev_ind = ind
+                    continue
+                new_indices = {elt for elt in indices}
+                new_indices.discard(ind)
+                prev_ind = ind
+                counter += 1
+                dfs(new_indices, path + [nums[ind]], c + 1)
 
-        for tup in list(res):
-            result.append(list(tup))
-        return result
+        dfs(init_ind, [], 0)
+        return res
