@@ -1,13 +1,12 @@
 class Solution:
     def shortestPalindrome(self, s: str) -> str:
-        if s == s[::-1]:
+        index = 0
+        length = len(s)
+        for j in range(length):
+            if s[index] == s[length - j - 1]:
+                index += 1
+        if index == length:
             return s
-        
-        front = (s[1:])[::-1]
-        for i in range(len(front)):
-            temp = s
-            t = front[:i + 1]
-            temp = t + temp
-            if temp == temp[::-1]:
-                return temp        
-        return temp
+        p = s[index:length][::-1]
+
+        return p + self.shortestPalindrome(s[:index]) + s[index:]
