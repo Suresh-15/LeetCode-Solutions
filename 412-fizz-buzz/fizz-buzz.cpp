@@ -2,19 +2,17 @@ class Solution {
 public:
     vector<string> fizzBuzz(int n) {
         vector<string> result;
-        string fizz = "Fizz", buzz = "Buzz", add;
+        string fizz = "Fizz", buzz = "Buzz";
         for (int i = 1; i <= n; i++) {
-            add = "";
-            if (i % 3 == 0) {
-                add += fizz;
+            if (i % 3 == 0 && i % 5 == 0) {
+                result.push_back(fizz + buzz);
+            } else if (i % 3 == 0) {
+                result.push_back(fizz);
+            } else if (i % 5 == 0) {
+                result.push_back(buzz);
+            } else {
+                result.push_back(to_string(i));
             }
-            if (i % 5 == 0) {
-                add += buzz;
-            }
-            if (add == "") {
-                add = to_string(i);
-            }
-            result.push_back(add);
         }
         return result;
     }
