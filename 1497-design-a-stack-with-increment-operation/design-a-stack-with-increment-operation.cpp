@@ -1,43 +1,46 @@
 class CustomStack {
-private:
-    int *stack, *increment_list;
-    int size, top = -1;
+    vector<int> stack;
+    vector<int> increment_list;
+    int size;
+    int count = 0;
+    int diff = 0;
+
 public:
     CustomStack(int maxSize) {
         this->size = maxSize;
-        this->stack = new int[this->size];
-        this->increment_list = new int[this->size];
+        this->stack.resize(this->size);
+        this->increment_list.resize(this->size);
     }
     
     void push(int x) {
-        if (this->top < this->size - 1) {
-            this->top += 1;
-            this->stack[this->top] = x;
-            this->increment_list[this->top] = 0;
-        }
+        if (count == size)
+            return;
+
+        if (count >= 1)
+            increment_list[count - 1] += diff;
+        diff = 0;
+
+        stack[count] = x;
+        increment_list[count] = 0;
+        count++;
     }
     
     int pop() {
-        if (this->top == -1) {
+        if (count == 0)
             return -1;
-        } else {
-            if (this->top >= 1) {
-                this->increment_list[this->top - 1] += this->increment_list[this->top];
-            }
-            int lastIndex = this->top--;
-            int result = this->stack[lastIndex] + this->increment_list[lastIndex];
-            this->increment_list[lastIndex] = 0;
-            return result;
-        }
+
+        diff += increment_list[count-1];
+        int result = stack[count-1] + diff;
+        count--;
+        return result;
     }
     
     void increment(int k, int val) {
-        if (this->top != -1) {
-            this->increment_list[min(k - 1, this->top)] += val;
-        }
+        if (count == 0)
+            return;
+        increment_list[min(k - 1, count - 1)] += val;
     }
 };
-
 /**
  * Your CustomStack object will be instantiated and called as such:
  * CustomStack* obj = new CustomStack(maxSize);
