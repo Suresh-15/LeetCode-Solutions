@@ -13,16 +13,15 @@ public:
     }
     
     void push(int x) {
-        if (count == size)
-            return;
-
-        if (count >= 1)
-            increment_list[count - 1] += diff;
-        diff = 0;
-
-        stack[count] = x;
-        increment_list[count] = 0;
-        count++;
+        if (count < size) {
+            if (count >= 1) {
+                increment_list[count - 1] += diff;
+            }
+            diff = 0;
+            stack[count] = x;
+            increment_list[count] = 0;
+            count++;
+        }
     }
     
     int pop() {
