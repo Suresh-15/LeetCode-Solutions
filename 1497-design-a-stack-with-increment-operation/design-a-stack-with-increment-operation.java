@@ -27,7 +27,9 @@ class CustomStack {
                 this.increment_list[this.top - 1] += this.increment_list[this.top];
             }
             int lastIndex = this.top--;
-            return this.stack[lastIndex] + this.increment_list[lastIndex];
+            int result = this.stack[lastIndex] + this.increment_list[lastIndex];
+            this.increment_list[lastIndex] = 0;
+            return result;
         }
     }
 
