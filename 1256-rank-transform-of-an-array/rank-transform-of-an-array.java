@@ -5,18 +5,18 @@ class Solution {
         }
         int[] nums = arr.clone();
         Arrays.sort(nums);
-        HashMap<Integer, Integer> map = new HashMap<>();
+        HashMap<Integer, Integer> ranks = new HashMap<>();
         int rank = 1;
-        map.put(nums[0], rank++);
+        ranks.put(nums[0], rank++);
         for (int i = 1; i < arr.length; i++) {
             if (nums[i] == nums[i - 1]) {
                 continue;
             } else {
-                map.put(nums[i], rank++);
+                ranks.put(nums[i], rank++);
             }
         }
         for (int i = 0; i < arr.length; i++) {
-            nums[i] = map.get(arr[i]);
+            nums[i] = ranks.get(arr[i]);
         }
         return nums;
     }
