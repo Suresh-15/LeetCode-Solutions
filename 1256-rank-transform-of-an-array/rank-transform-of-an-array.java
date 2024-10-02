@@ -3,7 +3,7 @@ class Solution {
         if (arr.length == 0) {
             return arr;
         }
-        
+
         int[] nums = arr.clone();
         Arrays.sort(nums);
         HashMap<Integer, Integer> ranks = new HashMap<>();
@@ -21,7 +21,6 @@ class Solution {
         for (int i = 0; i < arr.length; i++) {
             nums[i] = ranks.get(arr[i]);
         }
-        
         return nums;
     }
 }
