@@ -1,10 +1,5 @@
 class Solution:
     def arrayRankTransform(self, arr: List[int]) -> List[int]:
-        nums = list(dict.fromkeys(arr))
-        nums.sort(reverse=False)
-        values = [x for x in range(1, len(nums) + 1)]
-        dictionary = dict(zip(nums, values))
-        ranks = []
-        for num in arr:
-            ranks.append(dictionary[num])
-        return ranks
+        nums = sorted(set(arr))
+        ranks = {num : rank + 1 for rank, num in enumerate(nums)}
+        return [ranks[num] for num in arr]
