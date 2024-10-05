@@ -1,8 +1,8 @@
 class Solution {
 public:
-    bool allZero(int *arr){
-        for(int i = 0; i < 26; i++){
-            if(arr[i] != 0){
+    bool allZero(int* arr) {
+        for (int i = 0; i < 26; i++) {
+            if (arr[i] != 0) {
                 return false;
             }
         }
@@ -17,15 +17,15 @@ public:
         }
 
         int arr[26] = {0};
-        for(int i = 0; i < length1; i++){
+        for (int i = 0; i < length1; i++) {
             arr[s1[i] - 'a'] += 1;
         }
-        for(int i = 0; i < length2; i++){
+        for (int i = 0; i < length2; i++) {
             arr[s2[i] - 'a']--;
-            if(i - length1 >= 0){
-               arr[s2[i - length1] - 'a'] += 1;
+            if (i - length1 >= 0) {
+                arr[s2[i - length1] - 'a'] += 1;
             }
-            if(allZero(arr)) {
+            if (allZero(arr)) {
                 return true;
             }
         }
@@ -35,10 +35,10 @@ public:
     }
 };
 
-/*      
+/*
         if s1_chars == s2_chars:
             return True
-        
+
         for i in range(length1, length2):
             s2_chars[ord(s2[i]) - 97] += 1
             s2_chars[ord(s2[i - length1]) - 97] -= 1
