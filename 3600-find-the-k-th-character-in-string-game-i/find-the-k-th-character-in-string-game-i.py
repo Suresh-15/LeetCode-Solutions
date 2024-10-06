@@ -8,11 +8,13 @@ class Solution:
             'y':'z', 'z':'a'
         }
 
-        string = 'a'
+        string = 'ab'
+        appendString = 'b'
         while len(string) < k:
-            appendString = ''
-            for i in string:
-                appendString += nextChar[i]
+            for i in range(len(appendString)):
+                appendString += nextChar[appendString[i]]
             string += appendString
+
+        print(string)
     
         return string[k - 1]
