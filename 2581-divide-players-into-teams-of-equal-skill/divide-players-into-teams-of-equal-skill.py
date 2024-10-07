@@ -1,23 +1,14 @@
 class Solution:
     def dividePlayers(self, skill: List[int]) -> int:
-        length = len(skill)
-        total_skill = sum(skill)
-        frequency = [0] * 1001
+        n = len(skill)
+        pairSum = sum(skill) // (n // 2)
+        answer = 0
+        count = Counter(skill)
 
-        for val in skill:
-            frequency[val] += 1
-
-        if total_skill % (length // 2) != 0:
-            return -1
-        
-        pair_sum = total_skill // (length // 2)
-        totalChemistry = 0
-
-        for val in skill:
-            other = pair_sum - val
-            if frequency[other] == 0:
+        for key, value in count.items():
+            other = pairSum - key
+            if count[other] != value:
                 return -1
-            totalChemistry += val * other
-            frequency[other] -= 1
+            answer += key * other * value
 
-        return totalChemistry // 2
+        return answer // 2
