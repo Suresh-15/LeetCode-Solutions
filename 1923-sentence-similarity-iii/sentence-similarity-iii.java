@@ -1,24 +1,35 @@
 class Solution {
     public boolean areSentencesSimilar(String sentence1, String sentence2) {
-        Deque<String> deque1 = new ArrayDeque<>();
-        Deque<String> deque2 = new ArrayDeque<>();
+        String first = sentence1;
+        String second = sentence2;
+        if (first.length() == second.length()) {
+            return first.equals(second);
+        }
+        if (sentence2.length() < first.length()) {
+            first = sentence2;
+            second = sentence1;
+        }
+        int i = -1;
+        while (i + 1 < first.length() && first.charAt(i + 1) == second.charAt(i + 1)) {
+            i++;
+        }
+        int j = first.length();
+        int last = second.length();
+        while (j - 1 >= 0 && first.charAt(j - 1) == second.charAt(last - 1)) {
+            j--;
+            last--;
+        }
 
-        for (String word : sentence1.split(" ")) {
-            deque1.add(word);
+        if (i == first.length() - 1 && second.charAt(i + 1) == ' ') {
+            return true;
         }
-        for (String word : sentence2.split(" ")) {
-            deque2.add(word);
+        if (j == 0 && second.charAt(last - 1) == ' ') {
+            return true;
         }
-
-        while (!deque1.isEmpty() && !deque2.isEmpty() && deque1.peekFirst().equals(deque2.peekFirst())) {
-            deque1.pollFirst();
-            deque2.pollFirst();
-        }
-        while (!deque1.isEmpty() && !deque2.isEmpty() && deque1.peekLast().equals(deque2.peekLast())) {
-            deque1.pollLast();
-            deque2.pollLast();
+        if (i + 1 >= j && second.charAt(i) == ' ' && second.charAt(last) == ' ') {
+            return true;
         }
 
-        return deque1.isEmpty() || deque2.isEmpty();
+        return false;
     }
 }
