@@ -14,7 +14,5 @@ class Solution:
             for i in range(len(appendString)):
                 appendString += nextChar[appendString[i]]
             string += appendString
-
-        print(string)
     
         return string[k - 1]
