@@ -1,20 +1,15 @@
 class Solution {
 public:
     int minAddToMakeValid(string s) {
-        int min_count = 0; 
-        int open_deficit = 0;
-
-        for (char c: s) { 
+        int res = 0;
+        int numOpen = 0;
+        for (char c : s) {
             if (c == '(') {
-                open_deficit += 1;
+                ++numOpen;
             } else {
-                if (open_deficit == 0) {
-                    min_count += 1;
-                } else {
-                    open_deficit -= 1;
-                }
+                numOpen > 0 ? numOpen-- : res++;
             }
         }
-        return min_count + open_deficit;
+        return numOpen + res;
     }
 };
