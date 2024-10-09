@@ -1,13 +1,15 @@
 class Solution:
     def minAddToMakeValid(self, s: str) -> int:
-        opens = close = 0
-        for char in s:
-            if char == '(':
-                opens += 1
-            else:
-                if opens >= 1:
-                    opens -= 1
-                else:
-                    close += 1
+        min_count = 0 
+        open_deficit = 0
 
-        return opens + close 
+        for char in s: 
+            if char == "(":
+                open_deficit += 1
+            else:
+                if open_deficit == 0:
+                    min_count += 1
+                else:
+                    open_deficit -= 1
+        
+        return min_count + open_deficit
