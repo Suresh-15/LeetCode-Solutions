@@ -1,13 +1,16 @@
 class Solution:
     def maxWidthRamp(self, nums: List[int]) -> int:
-        n, max_width, indices_stack = len(nums), 0, []
-        for index in range(n):
-            if not(indices_stack) or nums[index] < nums[indices_stack[-1]]:
-                indices_stack.append(index)
-            
-        for index in range(n - 1, -1, -1):
-            while indices_stack and nums[indices_stack[-1]] <= nums[index]:
-                max_width = max(max_width, index - indices_stack[-1])
-                indices_stack.pop()
+        ans = 0
+        stack = []
+        n = len(nums)
 
-        return max_width        
+        for i in range(n):
+            if not stack or nums[i] < nums[stack[-1]]:
+                stack.append(i)
+        
+        for i in range(n-1,-1,-1):
+            while stack and nums[i] >= nums[stack[-1]]:
+                ans = max(ans, i - stack.pop())
+        
+        return ans
+   
