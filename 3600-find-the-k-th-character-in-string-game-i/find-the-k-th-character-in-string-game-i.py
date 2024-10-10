@@ -10,7 +10,6 @@ class Solution:
 
         string = 'ab'
         appendString = 'b'
-        
         while len(string) < k:
             for i in range(len(appendString)):
                 appendString += nextChar[appendString[i]]
