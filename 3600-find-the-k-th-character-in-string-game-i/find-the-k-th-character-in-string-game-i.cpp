@@ -2,6 +2,7 @@ class Solution {
 public:
     char kthCharacter(int k) {
         string ans = "a";
+        
         while (ans.length() < k) {
             string temp = "";
             for (char c : ans) {
