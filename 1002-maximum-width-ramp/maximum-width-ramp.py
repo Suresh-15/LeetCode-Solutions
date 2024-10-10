@@ -7,10 +7,9 @@ class Solution:
         for i in range(n):
             if not stack or nums[i] < nums[stack[-1]]:
                 stack.append(i)
-        
-        for i in range(n-1,-1,-1):
+
+        for i in range(n - 1, -1, -1):
             while stack and nums[i] >= nums[stack[-1]]:
                 ans = max(ans, i - stack.pop())
-        
+
         return ans
-   
