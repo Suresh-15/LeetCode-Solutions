@@ -1,17 +1,14 @@
 class Solution {
     public char kthCharacter(int k) {
-        String str = "a";
-        while (str.length() < k) {
-            StringBuilder temp = new StringBuilder();
-            for (char c : str.toCharArray()) {
-                if (c == 'z') {
-                    temp.append('a');
-                } else {
-                    temp.append((char) (c + 1));
-                }
+        char result = 'a';
+        k -= 1;
+        while (k > 0) {
+            result = (char) (result + (k % 2));
+            if (result == 123) {
+                result = 'a';
             }
-            str += temp.toString();
+            k /= 2;
         }
-        return str.charAt(k - 1);
+        return result;
     }
 }
